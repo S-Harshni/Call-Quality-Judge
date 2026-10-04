@@ -1,0 +1,14 @@
+Customer: Hello, Rahul here.
+Agent: Hi Rahul, this is Priya from Ghar Home Loans. Is this a good time to talk for two minutes?
+Customer: Sure.
+Agent: Which city is the property in?
+Customer: Bengaluru. I'm still looking at flats.
+Agent: That's fine, many customers start early. Roughly how much loan do you need?
+Customer: Around 80 lakh.
+Agent: Are you salaried, or do you run your own business?
+Customer: Salaried, software engineer.
+Agent: And roughly what is your monthly income?
+Customer: About 2 lakh a month.
+Agent: Which day and time suits you for a free 15-minute call with our loan advisor?
+Customer: Saturday 11 am.
+Agent: Thank you, Rahul, your advisor call is booked for Saturday 11 am. You will get a confirmation message. Have a good day!

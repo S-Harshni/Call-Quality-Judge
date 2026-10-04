@@ -1,0 +1,16 @@
+Customer: Haan ji, main Amit bol raha hoon.
+Agent: Namaste Amit ji, main Priya, Ghar Home Loans se. Kya abhi do minute baat kar sakte hain?
+Customer: Haan, boliye.
+Agent: Property kis city mein hai?
+Customer: Lucknow mein, flat final ho gaya hai.
+Agent: Aapko lagbhag kitna loan chahiye?
+Customer: Lagbhag 45 lakh.
+Agent: Aap job karte hain ya apna business hai?
+Customer: Main bank clerk hoon.
+Agent: Aur aapki monthly income lagbhag kitni hai?
+Customer: 75 thousand mahine ki.
+Agent: Thank you. Aur aapki monthly income lagbhag kitni hai?
+Customer: Abhi toh bataya, 75 thousand!
+Agent: Hamare loan advisor ke saath free 15 minute ki call ke liye kaunsa din aur time theek rahega?
+Customer: Shanivaar shaam 6 baje.
+Agent: Thank you, aapki advisor call Shanivaar shaam 6 baje ke liye book ho gayi hai. Aapko confirmation message mil jayega.

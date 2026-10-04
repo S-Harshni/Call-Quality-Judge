@@ -1,0 +1,128 @@
+# Business goal -> conversation flow for an outbound voice call.
+# "Ghar Home Loans" is a fictional lender used for this project.
+#
+# The flow engine (src/voiceagent/flow.py) owns every decision in this file: which state the call is in,
+# which fields are still missing, when the call ends and with which outcome. The language model only
+# understands the customer and phrases the reply.
+
+business:
+  brand: Ghar Home Loans
+  agent_name: Priya
+  goal: Qualify home-loan leads who left their number on the website and book a call with a loan advisor.
+  product_facts:
+    - Home loans from 5 lakh to 5 crore rupees, for salaried and self-employed customers.
+    - Tenure up to 30 years.
+    - The exact interest rate depends on the customer's profile and is shared only by a loan advisor.
+    - The advisor call is free and takes about 15 minutes.
+
+rules:
+  min_monthly_income_k: 25        # below this the lead is not eligible
+  loan_amount_lakh: [5, 500]      # accepted range
+  max_turns: 14                   # agent turns before the call is wrapped up
+
+# Fields the agent collects, in the order it asks for them.
+fields:
+  consent:
+    ask: Confirm you are speaking with the person who asked about a home loan and that this is a good time to talk.
+    type: bool
+  city:
+    ask: Which city the property is in.
+    type: text
+  property_status:
+    ask: "Whether they have already chosen or finalised a property (identified) or are still looking (searching)."
+    type: enum
+    values: [identified, searching]
+  loan_amount_lakh:
+    ask: Roughly how much loan they need.
+    type: number
+    unit: lakh rupees (1 crore = 100 lakh)
+  employment:
+    ask: "Whether they are salaried (a job with an employer: company, bank, government, shop staff) or self-employed (own business, shop or practice)."
+    type: enum
+    values: [salaried, self_employed]
+  monthly_income_k:
+    ask: Their approximate monthly income.
+    type: number
+    unit: thousand rupees per month (1 lakh per month = 100)
+  advisor_slot:
+    ask: Which day and time suits them for a free 15-minute call with a loan advisor.
+    type: text
+  callback_time:
+    ask: When it would be convenient to call them back.
+    type: text
+
+states:
+  greet:
+    collect: [consent]
+  discover:
+    collect: [city, property_status]
+  qualify:
+    collect: [loan_amount_lakh, employment, monthly_income_k]
+  book:
+    collect: [advisor_slot]
+  callback:
+    collect: [callback_time]
+
+# Scripted next questions. The model writes the acknowledgement or the answer to the customer's question;
+# the engine appends the question for the next missing field, so the call never loops or skips a step.
+questions:
+  consent:
+    en: "Is this a good time to talk for two minutes?"
+    hinglish: "Kya abhi do minute baat kar sakte hain?"
+    hi: "क्या अभी दो मिनट बात कर सकते हैं?"
+  city:
+    en: "Which city is the property in?"
+    hinglish: "Property kis city mein hai?"
+    hi: "प्रॉपर्टी किस शहर में है?"
+  property_status:
+    en: "Have you already chosen a property, or are you still looking?"
+    hinglish: "Aapne property final kar li hai, ya abhi dekh rahe hain?"
+    hi: "क्या आपने प्रॉपर्टी तय कर ली है, या अभी देख रहे हैं?"
+  loan_amount_lakh:
+    en: "Roughly how much loan do you need?"
+    hinglish: "Aapko lagbhag kitna loan chahiye?"
+    hi: "आपको लगभग कितना लोन चाहिए?"
+  employment:
+    en: "Are you salaried, or do you run your own business?"
+    hinglish: "Aap job karte hain ya apna business hai?"
+    hi: "आप नौकरी करते हैं या अपना व्यवसाय है?"
+  monthly_income_k:
+    en: "And roughly what is your monthly income?"
+    hinglish: "Aur aapki monthly income lagbhag kitni hai?"
+    hi: "और आपकी मासिक आय लगभग कितनी है?"
+  advisor_slot:
+    en: "Which day and time suits you for a free 15-minute call with our loan advisor?"
+    hinglish: "Hamare loan advisor ke saath free 15 minute ki call ke liye kaunsa din aur time theek rahega?"
+    hi: "हमारे लोन सलाहकार के साथ मुफ़्त 15 मिनट की कॉल के लिए कौन सा दिन और समय ठीक रहेगा?"
+  callback_time:
+    en: "When would be a good time to call you back?"
+    hinglish: "Aapko kab call karna theek rahega?"
+    hi: "आपको कब कॉल करना ठीक रहेगा?"
+
+# Fixed closing lines. When a call ends, the engine speaks one of these instead of model text,
+# so the ending of every call is predictable and compliant.
+closings:
+  booked:
+    en: "Thank you, {name_hint}your advisor call is booked for {advisor_slot}. You will get a confirmation message. Have a good day!"
+    hinglish: "Thank you, {name_hint}aapki advisor call {advisor_slot} ke liye book ho gayi hai. Aapko confirmation message mil jayega. Aapka din shubh ho!"
+    hi: "धन्यवाद, {name_hint}आपकी सलाहकार कॉल {advisor_slot} के लिए बुक हो गई है। आपको पुष्टि का संदेश मिल जाएगा। आपका दिन शुभ हो!"
+  callback:
+    en: "No problem, I will call you back {callback_time}. Thank you!"
+    hinglish: "Koi baat nahi, main aapko {callback_time} call karungi. Thank you!"
+    hi: "कोई बात नहीं, मैं आपको {callback_time} फिर से कॉल करूँगी। धन्यवाद!"
+  not_interested:
+    en: "I understand, I will not call you again. Thank you for your time."
+    hinglish: "Main samajh gayi, aapko dobara call nahi karenge. Aapke time ke liye thank you."
+    hi: "मैं समझ गई, आपको दोबारा कॉल नहीं करेंगे। आपके समय के लिए धन्यवाद।"
+  not_eligible:
+    en: "Thank you for sharing. Right now we cannot offer a loan for this profile, but we will keep your details and reach out if that changes. Have a good day!"
+    hinglish: "Batane ke liye thank you. Abhi is profile ke liye hum loan offer nahi kar paayenge, lekin aapki details rakh lete hain aur kuch badla to aapko batayenge."
+    hi: "बताने के लिए धन्यवाद। अभी इस प्रोफ़ाइल के लिए हम लोन नहीं दे पाएँगे, लेकिन आपकी जानकारी रख लेते हैं और कुछ बदला तो आपको बताएँगे।"
+  wrong_number:
+    en: "Sorry for the trouble, I will update our records. Have a good day!"
+    hinglish: "Sorry for the trouble, main record update kar deti hoon. Aapka din shubh ho!"
+    hi: "परेशानी के लिए माफ़ी, मैं रिकॉर्ड ठीक कर देती हूँ। आपका दिन शुभ हो!"
+  max_turns:
+    en: "Thank you for your time. An advisor will reach out to you on this number. Have a good day!"
+    hinglish: "Aapke time ke liye thank you. Ek advisor aapko isi number par contact karenge."
+    hi: "आपके समय के लिए धन्यवाद। एक सलाहकार आपसे इसी नंबर पर संपर्क करेंगे।"

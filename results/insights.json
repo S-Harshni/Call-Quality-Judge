@@ -1,0 +1,230 @@
+{
+ "judge": "hybrid:qwen2.5:3b",
+ "calls": 154,
+ "fail_rate_by_check": [
+  {
+   "check_id": "repeat_question",
+   "judge_fail_rate": 0.409,
+   "logged_fail_rate": 0.273
+  },
+  {
+   "check_id": "outcome",
+   "judge_fail_rate": 0.221,
+   "logged_fail_rate": 0.24
+  },
+  {
+   "check_id": "compliance",
+   "judge_fail_rate": 0.091,
+   "logged_fail_rate": 0.026
+  },
+  {
+   "check_id": "next_step",
+   "judge_fail_rate": 0.071,
+   "logged_fail_rate": 0.149
+  },
+  {
+   "check_id": "language",
+   "judge_fail_rate": 0.026,
+   "logged_fail_rate": 0.019
+  }
+ ],
+ "fail_rate_by_voice_config": [
+  {
+   "voice_config": "persona:llama3.2:3b:code_flow",
+   "fail_rate": 0.077,
+   "calls": 26,
+   "clean_call_share": 0.692
+  },
+  {
+   "voice_config": "persona:qwen2.5:3b:code_flow",
+   "fail_rate": 0.092,
+   "calls": 26,
+   "clean_call_share": 0.654
+  },
+  {
+   "voice_config": "few_shot:qwen2.5:3b:code_flow",
+   "fail_rate": 0.075,
+   "calls": 24,
+   "clean_call_share": 0.625
+  },
+  {
+   "voice_config": "persona:gemma2:2b:code_flow",
+   "fail_rate": 0.162,
+   "calls": 26,
+   "clean_call_share": 0.423
+  },
+  {
+   "voice_config": "zero_shot:qwen2.5:3b:code_flow",
+   "fail_rate": 0.177,
+   "calls": 26,
+   "clean_call_share": 0.308
+  },
+  {
+   "voice_config": "persona:qwen2.5:3b:llm_flow",
+   "fail_rate": 0.392,
+   "calls": 26,
+   "clean_call_share": 0.077
+  }
+ ],
+ "fail_rate_by_language": [
+  {
+   "language": "en",
+   "check_id": "repeat_question",
+   "fail_rate": 0.283
+  },
+  {
+   "language": "en",
+   "check_id": "outcome",
+   "fail_rate": 0.283
+  },
+  {
+   "language": "en",
+   "check_id": "compliance",
+   "fail_rate": 0.094
+  },
+  {
+   "language": "en",
+   "check_id": "next_step",
+   "fail_rate": 0.038
+  },
+  {
+   "language": "en",
+   "check_id": "language",
+   "fail_rate": 0.0
+  },
+  {
+   "language": "hi",
+   "check_id": "repeat_question",
+   "fail_rate": 0.521
+  },
+  {
+   "language": "hi",
+   "check_id": "outcome",
+   "fail_rate": 0.146
+  },
+  {
+   "language": "hi",
+   "check_id": "next_step",
+   "fail_rate": 0.042
+  },
+  {
+   "language": "hi",
+   "check_id": "compliance",
+   "fail_rate": 0.042
+  },
+  {
+   "language": "hi",
+   "check_id": "language",
+   "fail_rate": 0.021
+  },
+  {
+   "language": "hinglish",
+   "check_id": "repeat_question",
+   "fail_rate": 0.434
+  },
+  {
+   "language": "hinglish",
+   "check_id": "outcome",
+   "fail_rate": 0.226
+  },
+  {
+   "language": "hinglish",
+   "check_id": "next_step",
+   "fail_rate": 0.132
+  },
+  {
+   "language": "hinglish",
+   "check_id": "compliance",
+   "fail_rate": 0.132
+  },
+  {
+   "language": "hinglish",
+   "check_id": "language",
+   "fail_rate": 0.057
+  }
+ ],
+ "fail_rate_by_customer_behavior": [
+  {
+   "behavior": "sensitive",
+   "fail_rate": 0.3,
+   "calls": 6
+  },
+  {
+   "behavior": "cooperative",
+   "fail_rate": 0.212,
+   "calls": 17
+  },
+  {
+   "behavior": "not_interested",
+   "fail_rate": 0.189,
+   "calls": 18
+  },
+  {
+   "behavior": "rate_pusher",
+   "fail_rate": 0.178,
+   "calls": 18
+  },
+  {
+   "behavior": "not_eligible",
+   "fail_rate": 0.156,
+   "calls": 18
+  },
+  {
+   "behavior": "all_at_once",
+   "fail_rate": 0.156,
+   "calls": 18
+  },
+  {
+   "behavior": "corrects",
+   "fail_rate": 0.153,
+   "calls": 17
+  },
+  {
+   "behavior": "injection",
+   "fail_rate": 0.133,
+   "calls": 6
+  },
+  {
+   "behavior": "wrong_number",
+   "fail_rate": 0.122,
+   "calls": 18
+  },
+  {
+   "behavior": "busy",
+   "fail_rate": 0.111,
+   "calls": 18
+  }
+ ],
+ "judge_vs_logs": [
+  {
+   "check_id": "compliance",
+   "both_fail": 0,
+   "judge_only": 14,
+   "logs_only": 4
+  },
+  {
+   "check_id": "language",
+   "both_fail": 0,
+   "judge_only": 4,
+   "logs_only": 3
+  },
+  {
+   "check_id": "next_step",
+   "both_fail": 11,
+   "judge_only": 0,
+   "logs_only": 12
+  },
+  {
+   "check_id": "outcome",
+   "both_fail": 15,
+   "judge_only": 19,
+   "logs_only": 22
+  },
+  {
+   "check_id": "repeat_question",
+   "both_fail": 42,
+   "judge_only": 21,
+   "logs_only": 0
+  }
+ ]
+}
